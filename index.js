@@ -166,7 +166,8 @@ Fileupload.prototype.handle = function (ctx, next) {
 			.on('file', function(name, file) {
 				debug("File %j received", file.name);
 				file.originalFilename = file.name;
-				file.name = md5(Date.now()) + '.' + file.name.split('.').pop();
+			        file.name = md5(new Date().getFullYear() +  new Date().getSeconds() + file.name + new Date().getMonth() + new Date().getMinutes() )   + '.' + file.name.split('.').pop();
+
 				
 				renameAndStore(file);
 			}).on('fileBegin', function(name, file) {
