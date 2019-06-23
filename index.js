@@ -85,7 +85,11 @@ function Fileupload(name, options) {
 	try {
 		fs.statSync(this.config.fullDirectory).isDirectory();
 	} catch (er) {
-		fs.mkdir(this.config.fullDirectory);
+		fs.mkdir(this.config.fullDirectory, function(err){
+		   if(err){
+			
+			}
+		});
 	}
 }
 
@@ -134,7 +138,12 @@ Fileupload.prototype.handle = function (ctx, next) {
 					try {
 						fs.statSync(uploadDir).isDirectory();
 					} catch (er) {
-						fs.mkdir(uploadDir);
+						fs.mkdir(this.config.fullDirectory, function(err){
+						  if(err){
+						      debug("Error: %j", err);
+						      return processDone();
+						  }
+						});
 					}
 				}
 				
